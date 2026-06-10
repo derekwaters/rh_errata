@@ -1,12 +1,11 @@
 import asyncio
+import aiohttp
 import logging
 import datetime
 from typing import Any
 
 
-BASE_URL = {
-    "https://access.redhat.com/hydra/rest/securitydata/"
-}
+BASE_URL = "https://access.redhat.com/hydra/rest/securitydata/"
 
 
 
@@ -18,28 +17,29 @@ async def main(queue: asyncio.Queue[Any], args: dict[str, Any]) -> None:
 
     delay = int(args.get("interval", 1))
 
-    common_get_args = {}
-    if not verify_ssl:
-        common_get_args["ssl"] = True
-
-    poll_since = datetime.datetime.now()
+    # Hack - get the last seven days of events on the first poll
+    poll_since = datetime.datetime.now() - datetime.timedelta(days=7)
 
     while True:
-        endpoint_url = BASE_URL + "csaf.json?after=" + poll_since.isoformat()
-        logger.info("Retrieving errata from " + endpoint_url)
+        endpoint_url = "{}csaf.json?after={}".format(BASE_URL, poll_since.isoformat())
+        logger.info("Retrieving errata from {}".format(endpoint_url))
+        print("Retrieving errata from {}".format(endpoint_url))
 
         poll_since = datetime.datetime.now()
 
         async with aiohttp.ClientSession() as session:
             async with session.get(endpoint_url) as resp:
-                for errata in resp:
-                    await queue.put(
-                        {
-                            "errata_api": {
-                                "data" : errata,
+                if resp.status == 200:
+                    errata_data = await resp.json()
+                    # print(errata_data)
+                    for errata in errata_data:
+                        await queue.put(
+                            {
+                                "body": {
+                                    "data" : errata,
+                                },
                             },
-                        },
-                    )
+                        )
 
         await asyncio.sleep(delay)
 

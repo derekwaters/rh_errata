@@ -1,0 +1,35 @@
+---
+- name: Handle Red Hat Errata publications
+  hosts: all
+  sources:
+    - name: Red Hat Errata API
+      derekwaters.rh_errata.errata_api:
+        interval: 60
+  rules:
+    - name: Handle critical vulnerability errata
+      condition: >
+        event.body.data.severity == 'critical'
+      actions:
+        - run_workflow_template:
+            name: 'handle-critical-vulnerability-errata'
+            organization: 'security'
+    
+    - name: Handle important vulnerability errata
+      condition: >
+        event.body.data.severity == 'important'
+      actions:
+        - debug:
+            var: event.body.data.RHSA
+            
+    - name: Handle moderate vulnerability errata
+      condition: >
+        event.body.data.severity == 'moderate'
+      actions:
+        - debug:
+            var: event.body.data.RHSA
+
+    - name: Fallthrough
+      condition: event.meta is defined
+      actions:
+        - debug:
+            var: event
