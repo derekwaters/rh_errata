@@ -10,9 +10,8 @@
       condition: >
         event.body.data.severity == 'critical'
       actions:
-        - run_workflow_template:
-            name: 'handle-critical-vulnerability-errata'
-            organization: 'security'
+        - debug:
+            var: event.body.data.RHSA
     
     - name: Handle important vulnerability errata
       condition: >

@@ -15,7 +15,7 @@ async def main(queue: asyncio.Queue[Any], args: dict[str, Any]) -> None:
     logger = logging.getLogger()
     logger.info("Processing errata queue")
 
-    delay = int(args.get("interval", 1))
+    delay = int(args.get("interval", 60))
 
     # Hack - get the last seven days of events on the first poll
     poll_since = datetime.datetime.now() - datetime.timedelta(days=7)
