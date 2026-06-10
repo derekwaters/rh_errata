@@ -16,9 +16,10 @@ async def main(queue: asyncio.Queue[Any], args: dict[str, Any]) -> None:
     logger.info("Processing errata queue")
 
     delay = int(args.get("interval", 60))
+    # Undocumented parameter for testing
+    resend_days = int(args.get("resend_days", 0))
 
-    # Hack - get the last seven days of events on the first poll
-    poll_since = datetime.datetime.now() - datetime.timedelta(days=7)
+    poll_since = datetime.datetime.now() - datetime.timedelta(days=resend_days)
 
     while True:
         endpoint_url = "{}csaf.json?after={}".format(BASE_URL, poll_since.isoformat())
