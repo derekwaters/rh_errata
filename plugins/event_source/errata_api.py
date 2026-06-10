@@ -5,7 +5,7 @@ from typing import Any
 
 
 BASE_URL = {
-    "https://access.redhat.com/hydra/rest/securitydata"
+    "https://access.redhat.com/hydra/rest/securitydata/"
 }
 
 
@@ -25,7 +25,7 @@ async def main(queue: asyncio.Queue[Any], args: dict[str, Any]) -> None:
     poll_since = datetime.datetime.now()
 
     while True:
-        endpoint_url = BASE_URL + "csaf.json&after=" + poll_since.isoformat()
+        endpoint_url = BASE_URL + "csaf.json?after=" + poll_since.isoformat()
         logger.info("Retrieving errata from " + endpoint_url)
 
         poll_since = datetime.datetime.now()
