@@ -3,15 +3,15 @@ name: rh_errata
 version: 1.0.0
 readme: README.md
 authors:
-- Derek Waters <derek@frisbeeworld.com>
+  - Derek Waters <derek@frisbeeworld.com>
 description: Trigger EDA events when new Red Hat errata are published
 license:
-- GPL-2.0-or-later
+  - GPL-2.0-or-later
 tags:
-  - EDA
+  - eda
   - errata
-  - RHSA
-  - CVE
+  - rhsa
+  - cve
 dependencies: {}
 repository: https://github.com/derekwaters/rh_errata
 documentation: https://github.com/derekwaters/rh_errata/README.md

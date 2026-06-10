@@ -12,14 +12,14 @@
       actions:
         - debug:
             var: event.body.data.RHSA
-    
+
     - name: Handle important vulnerability errata
       condition: >
         event.body.data.severity == 'important'
       actions:
         - debug:
             var: event.body.data.RHSA
-            
+
     - name: Handle moderate vulnerability errata
       condition: >
         event.body.data.severity == 'moderate'
