@@ -1,4 +1,4 @@
-# derekwaters.rh_errata.errata_api
+# derekwaters.rh_errata.errata_events
 Handle Red Hat Errata events.
 
 The data attached to an event is the CSAF / VEX data returned from the [Red Hat Errata API](https://docs.redhat.com/en/documentation/red_hat_security_data_api/1.0/html/red_hat_security_data_api/overview).
@@ -19,7 +19,7 @@ The host that executes this event source requires:
   hosts: all
   sources:
     - name: Red Hat Errata API
-      derekwaters.rh_errata.errata_api:
+      derekwaters.rh_errata.errata_events:
         interval: 60
   rules:
     - name: Handle critical vulnerability errata

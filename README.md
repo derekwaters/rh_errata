@@ -13,7 +13,7 @@ The following set of content is included within this collection:
 
 | Name  | Description |
 | ----- | ----------- |
-| [derekwaters.rh_errata.errata_api](https://github.com/derekwaters/rh_errata/blob/main/docs/derekwaters.rh_errata.errata_api.rst) | Monitor the Red Hat Errata API for new Errata events. |
+| [derekwaters.rh_errata.errata_events](https://github.com/derekwaters/rh_errata/blob/main/docs/derekwaters.rh_errata.errata_events.rst) | Monitor the Red Hat Errata API for new Errata events. |
 
 ## Usage
 
@@ -24,7 +24,7 @@ The following is an example of how to use the Red Hat Errata Event Source Plugin
   hosts: all
   sources:
     - name: Red Hat Errata API
-      derekwaters.rh_errata.errata_api:
+      derekwaters.rh_errata.errata_events:
         interval: 60
   rules:
     - name: Notify
