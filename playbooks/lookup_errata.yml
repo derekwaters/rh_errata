@@ -1,0 +1,14 @@
+---
+- name: Lookup details of a Red Hat Errata record
+  hosts: all
+  vars:
+    _rhsa_id: "RHSA-2022:6155"
+  
+  tasks:
+    - name: Lookup the errata data
+      ansible.builtin.set_fact:
+        _rhsa_data: "{{ lookup('derekwaters.rh_errata.errata', rhsa=_rhsa_id)}}"
+
+    - name: Output the errata data
+      ansible.builtin.debug:
+        var: _rhsa_data

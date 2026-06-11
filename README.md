@@ -15,6 +15,12 @@ The following set of content is included within this collection:
 | ----- | ----------- |
 | [derekwaters.rh_errata.errata_events](https://github.com/derekwaters/rh_errata/blob/main/docs/derekwaters.rh_errata.errata_events.rst) | Monitor the Red Hat Errata API for new Errata events. |
 
+### Lookup Plugins 
+
+| Name  | Description |
+| ----- | ----------- |
+| [derekwaters.rh_errata.errata](https://github.com/derekwaters/rh_errata/blob/main/docs/derekwaters.rh_errata.errata.rst) | Lookup details on a specific Red Hat Errata. |
+
 ## Usage
 
 The following is an example of how to use the Red Hat Errata Event Source Plugin within an Ansible Rulebook:
@@ -31,6 +37,21 @@ The following is an example of how to use the Red Hat Errata Event Source Plugin
       condition: event.body.data.severity == "critical"
       action:
         debug:                      
+```
+
+
+The following is an example of how to use the Red Hat Errata Lookup Plugin within an Ansible Playbook:
+
+```yaml
+- name: Lookup details of a Red Hat Errata record
+  hosts: all
+  vars:
+    _rhsa_id: "RHSA-2022:6155"
+  
+  tasks:
+    - name: Lookup the errata data
+      ansible.builtin.set_fact:
+        _rhsa_data: "{{ lookup('derekwaters.rh_errata.errata', rhsa=_rhsa_id)}}"
 ```
 
 ## Building a Decision Environment that includes this library
