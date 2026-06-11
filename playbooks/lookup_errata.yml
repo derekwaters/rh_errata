@@ -3,7 +3,7 @@
   hosts: all
   vars:
     _rhsa_id: "RHSA-2022:6155"
-  
+
   tasks:
     - name: Lookup the errata data
       ansible.builtin.set_fact:
